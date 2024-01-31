@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Par_sort_count")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f77855e3adf5d7c284060c81a972b329dcdd27c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+058d372181e43da283ddf06e878ef1acb495e69e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Par_sort_count")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Par_sort_count")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

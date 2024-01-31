@@ -1,5 +1,6 @@
 ﻿const int THREADS_NUMBER = 4; // количество потоков
-const int N = 1000; // размер массива
+const int N = 100000; // размер массива
+object locker = new object();
 
 Random rand = new Random();
 int[] resSerial = new int[N].Select(r => rand.Next(0, 5)).ToArray();  // Генереруем массив для последовательной сортировки
@@ -7,13 +8,10 @@ int[] resSerial = new int[N].Select(r => rand.Next(0, 5)).ToArray();  // Ген�
 int[] resParallel = new int[N];
 Array.Copy(resSerial, resParallel, N); // Копируем массив для паралельной сортировки
 
-//Console.WriteLine(string.Join(", ", resSerial));
-
 CountingSortSeriall(resSerial);
 PreparallelCountingSort(resParallel);
 Console.WriteLine(EqualityArray(resSerial, resParallel));
-//Console.WriteLine(string.Join(", ", resSerial));
-//Console.WriteLine(string.Join(", ", resParallel));
+
 
 void PreparallelCountingSort(int[] inputArray) // Готовим потоки для сортировки
 {
@@ -41,7 +39,7 @@ void PreparallelCountingSort(int[] inputArray) // Готовим потоки д
     {
         thread.Join(); // Ожидаем поток
     }
-    Console.WriteLine(string.Join(", ", counters));
+
     int index = 0;
     for (int i = 0; i < counters.Length; i++) // Запоняем массив
     {
@@ -57,7 +55,10 @@ void CountingSortParallel(int[] inputArray, int [] counters, int offset, int sta
 {
     for (int i = startPos; i < endPos; i++)
     {
-        counters[inputArray[i] + offset]++;
+       lock (locker)
+       {
+            counters[inputArray[i] + offset]++;
+       }
     }
 }
 
@@ -73,7 +74,7 @@ void CountingSortSeriall(int[] inputArray)
     {
         counters[inputArray[i] + offset]++; // Считаем элементы 
     }
-    Console.WriteLine(string.Join(", ", counters));
+    
     int index = 0;
     for (int i = 0; i < counters.Length; i++) // Запоняем массив
     {
